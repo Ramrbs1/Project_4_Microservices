@@ -14,14 +14,14 @@ LOG.setLevel(logging.INFO)
 def scale(payload):
     """Scales Payload"""
 
-    LOG.info(f"Scaling Payload: {payload}")
+    LOG.info("JSON payload: \n"+json_payload)
     scaler = StandardScaler().fit(payload)
     scaled_adhoc_predict = scaler.transform(payload)
     return scaled_adhoc_predict
 
 @app.route("/")
 def home():
-    html = f"<h3>Sklearn Prediction Home</h3>"
+    html = "<h3>Sklearn Prediction Home</h3>"
     return html.format(format)
 
 
@@ -62,7 +62,7 @@ def predict():
     LOG.info(f"inference payload DataFrame: {inference_payload}")
     scaled_payload = scale(inference_payload)
     prediction = list(clf.predict(scaled_payload))
-    LOG.info(f"prediction {prediction}")
+    LOG.info("prediction {prediction}")
     return jsonify({'prediction': prediction})
 
 if __name__ == "__main__":
